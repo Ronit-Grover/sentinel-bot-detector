@@ -4,7 +4,7 @@ A real-time bot detection system built with React that uses behavioral analysis 
 
 ## 🎯 What Does It Do?
 
-SENTINEL monitors user interactions on a webpage and assigns a Human Score (0–100) based on multiple behavioral signals. Think of it as a simplified version of what Cloudflare, Google reCAPTCHA v3, and Akamai use behind the scenes.
+SENTINEL monitors user interactions on a webpage and assigns a Human Score (0-100) based on multiple behavioral signals. Think of it as a simplified version of what Cloudflare, Google reCAPTCHA v3, and Akamai use behind the scenes.
 
  Live Demo Features: 
 - Real-time mouse trail visualization
@@ -78,9 +78,9 @@ All signals are combined using a weighted scoring system:
 | Scroll Behavior | 5/100 | Minor supporting signal |
 
  Score interpretation: 
--  70–100  → Likely Human (green)
--  40–69  → Suspicious (yellow)
--  0–39  → Likely Bot (red)
+-  70-100  → Likely Human (green)
+-  40-69  → Suspicious (yellow)
+-  0-39  → Likely Bot (red)
 
 ## 🏗️ Project Structure
 
