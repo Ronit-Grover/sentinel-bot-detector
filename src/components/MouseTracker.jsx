@@ -6,12 +6,12 @@ function MouseTracker({ onAnalysis }) {
   const [analysis, setAnalysis] = useState({ straightness: 0, speedVariance: 0 });
   const areaRef = useRef(null);
 
-  const handleMouseMove = useCallback((e) => {
+  const addPoint = useCallback((x, y) => {
     const rect = areaRef.current.getBoundingClientRect();
 
     const newPoint = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+      x: x - rect.left,
+      y: y - rect.top,
       t: Date.now(),
     };
 
@@ -31,6 +31,16 @@ function MouseTracker({ onAnalysis }) {
     });
   }, [onAnalysis]);
 
+  const handleMouseMove = useCallback((e) => {
+    addPoint(e.clientX, e.clientY);
+  }, [addPoint]);
+
+  const handleTouchMove = useCallback((e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    addPoint(touch.clientX, touch.clientY);
+  }, [addPoint]);
+
   const getStatus = (straightness) => {
     if (straightness === 0) return { label: "WAITING", color: "#4a5568" };
     if (straightness < 1.05) return { label: "BOT", color: "#ff3366" };
@@ -49,6 +59,7 @@ function MouseTracker({ onAnalysis }) {
       <div
         ref={areaRef}
         onMouseMove={handleMouseMove}
+        onTouchMove={handleTouchMove}
         style={{
           height: 200,
           background: "#0d1224",
@@ -57,10 +68,11 @@ function MouseTracker({ onAnalysis }) {
           position: "relative",
           overflow: "hidden",
           cursor: "crosshair",
+          touchAction: "none",
         }}
       >
         <div style={{ position: "absolute", top: 10, left: 12, fontSize: 10, color: "#1e2a45" }}>
-          Move your mouse here
+          Move your mouse or finger here
         </div>
 
         <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
